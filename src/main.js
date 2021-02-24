@@ -1,7 +1,7 @@
 /*
  * @Description: 
  * @Date: 2021-01-20 18:08:37
- * @LastEditTime: 2021-02-24 17:30:55
+ * @LastEditTime: 2021-02-24 17:48:49
  */
 import Vue from 'vue'
 import vuescroll from 'vuescroll';
@@ -37,7 +37,6 @@ Vue.prototype.$vuescrollConfig = {
 
 Vue.use(ElementUI);
 Vue.use(VueClipboard);  // 剪切板插件
-Vue.use(Viewer)  // 图片预览工具
 
 
 Vue.config.productionTip = false

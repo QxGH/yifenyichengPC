@@ -1,25 +1,15 @@
 <template>
   <div>
     <div :id="randomId" type="text/plain"></div>
-    <ImageManage
-      :limit="5"
-      @checkedImage="checkedImageHandle"
-      v-if="showImageManage"
-      @close="closeImageManage"
-    ></ImageManage>
   </div>
 </template>
 
 <script>
-import ImageManage from "@/components/image_manage";
 import UeBus from '@/bus/ue_bus'
 
 export default {
   name: "UE",
   props: ["richText", "width", "height"],
-  components: {
-    ImageManage
-  },
   data() {
     return {
       showImageManage: false,
