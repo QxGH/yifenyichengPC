@@ -1,0 +1,167 @@
+.layout {
+  padding: 0;
+  height: 100%;
+  display: flex;
+}
+
+.layout .el-header {
+  padding: 0;
+}
+
+.layout .el-aside {
+  transition: width .3s;
+  overflow: hidden;
+}
+
+.layout .el-container {
+  height: 100%;
+}
+
+.layout .el-main {
+  height: 100%;
+  padding: 0;
+}
+
+.layout .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+
+.layout .main-container {
+  height: 100%;
+  background: #FAFBFF;
+  padding: 16px 0 16px 16px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.layout .main-wrap {
+  height: 100%;
+  background: #fff;
+  overflow-y: auto;
+}
+
+.layout .download-manage {
+  position: absolute;
+  right: 0;
+  top: 80px;
+  z-index: 199;
+  cursor: pointer;
+  user-select: none;
+  height: 50px;
+}
+
+.layout .download-manage .fixed-box {
+  height: 100%;
+}
+
+.layout .download-manage .bar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  display: block;
+  width: 8px;
+  height: 50px;
+  background: #fff;
+  border: 2px solid #2589ff;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.layout .download-manage .bar .progress {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #8cc5ff;
+  width: 100%;
+  border-radius: 2px;
+}
+
+.layout .download-manage .bar .progress.animate {
+  animation: progress 3s linear infinite;
+}
+
+@keyframes progress {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+.layout .download-manage .handle {
+  position: absolute;
+  right: 0px;
+  top: 0;
+  z-index: 2;
+  width: 50px;
+  height: 50px;
+  background: #2589ff;
+  color: #fff;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+.layout .download-manage .handle.move {
+  cursor: move;
+}
+
+.layout .download-manage .handle .download-manage-handle-modal {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.layout .download-manage .handle .icon-box {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.layout .download-manage .handle .icon-box .icon {
+  font-size: 24px;
+}
+
+.layout .download-manage .handle .icon-box .icon.animation {
+  animation: iconMove 1s ease-in-out infinite;
+}
+
+@keyframes iconMove {
+  0% {
+    transform: translateY(-4px);
+  }
+  70% {
+    transform: translateY(4px);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
+
+.layout .slide-fade-enter-active, .layout .slide-fade-leave-active {
+  transition: all .3s ease;
+}
+
+.layout .slide-fade-enter, .layout .slide-fade-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.layout .fade-enter-active, .layout .fade-leave-active {
+  transition: opacity .3s;
+}
+
+.layout .fade-enter, .layout .fade-leave-to {
+  opacity: 0;
+}

@@ -1,0 +1,33 @@
+.customer-intention {
+  padding: 10px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  .search-box {
+    padding: 16px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    background: #FAFBFF;
+  }
+  .search-btn-box {
+    padding-left: 82px;
+    .el-button {
+      padding: 0 15px;
+      height: 32px;
+    }
+  }
+  .pagetion-box {
+    text-align: right;
+    margin-top: 16px;
+  }
+  .table-box {
+    flex: 1;
+  }
+  .selection-del-box {
+    padding: 20px 14px 0;
+    .sel-selection-btn {
+      padding: 8px 20px;
+      margin-left: 20px;
+    }
+  }
+}

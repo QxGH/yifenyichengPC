@@ -1,0 +1,64 @@
+.not-found {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  padding-top: 60px;
+}
+
+.not-found .img-box {
+  width: 45%;
+  height: 0;
+  margin: 0 auto;
+  padding-left: 10%;
+  padding-top: 29%;
+  position: relative;
+}
+
+.not-found .img-box .img {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.not-found .tips {
+  margin: 26px 0 48px;
+  line-height: 28px;
+  font-size: 20px;
+  color: #666;
+  text-align: center;
+}
+
+.not-found .btn-box {
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.not-found .btn-box .btn {
+  width: 210px;
+  height: 48px;
+  outline: 0;
+  font-size: 20px;
+}
+
+.not-found .btn-box .btn + .btn {
+  margin-left: 100px;
+}
+
+.not-found .btn-box .back-btn {
+  border: 2px solid #2589ff;
+  background-color: #fff;
+  color: #2589FF;
+  border-radius: 24px;
+}
+
+.not-found .btn-box .refresh-btn {
+  background-image: url("https://cdn.xingchen.cn/Frxssngj28XuaXHu8RE_CEFxyEjd");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border: 0;
+  background-color: transparent;
+  color: #fff;
+}

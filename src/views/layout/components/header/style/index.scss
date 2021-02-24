@@ -1,0 +1,316 @@
+.header {
+  background-color: #fff;
+  padding-left: 20px;
+  height: 100%;
+  line-height: 56px;
+  -moz-user-select:none; /*火狐*/
+  -webkit-user-select:none; /*webkit浏览器*/
+  -ms-user-select:none; /*IE10*/
+  -khtml-user-select:none; /*早期浏览器*/
+  user-select:none;
+  .current-menu {
+    font-size: 14px;
+    color: rgba(0,0,0,.6);
+    display: inline-block;
+    cursor: default;
+  }
+  .user-info {
+    cursor: pointer;
+    .icon {
+      color: #999;
+      // margin-left: 5px;
+      vertical-align: middle;
+      font-size: 12px;
+    }
+    .name {
+      margin: 0 6px;
+      vertical-align: middle;
+      font-size: 14px;
+    }
+    .avatar {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+  }
+  .help-serve-box {
+    width: 216px;
+    margin-left: 16px;
+    display: flex;
+    padding-right: 24px;
+    .icon-box {
+      padding: 0 10px;
+      display: inline-block;
+      height: 100%;
+    }
+    .help-box {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .d-flex-lr{
+    display: flex;
+  }
+  .pl8{
+    padding-left:8px;
+  }
+  .pr60{
+    padding-right:60px;
+  }
+  
+  .v-mid{
+    vertical-align: middle;
+  }
+  .help-pop{
+    width:230px;
+    padding: 0 10px 20px;
+    height: 100%;
+    background: white;
+    position: absolute;
+    z-index:180;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    // overflow-y: auto;
+  }
+  .help-search{
+    border-bottom:1px solid rgba(112,112,112,0.1);
+    padding-bottom:20px;
+    line-height: normal;
+  }
+  .help-center{
+    font-size:16px;
+    line-height:20px;
+    color:rgba(37,137,255,1);
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(112,112,112,0.1);
+    border-top: 1px solid rgba(112,112,112,0.1);
+    cursor: pointer;
+    &:hover {
+      color: #51a1ff;
+    }
+  }
+  .help-contact{
+    margin-top:20px;
+    width: 100%;
+    height:32px;
+    border: 1px solid rgba(24,144,255,1);
+    border-radius:2px;
+    font-size:14px;
+    line-height: 30px;
+    text-align: center;
+    color:rgba(37,137,255,1);
+    cursor: pointer;
+    transition: background .3s;
+    &:hover {
+      background: rgb(233, 243, 255);
+    }
+  }
+  .help-list {
+    flex: 1;
+    overflow-y: auto;
+    .help-item {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(112,112,112,.1);
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+    .help-title {
+      line-height: 22px;
+      height: 22px;
+      color: #333;
+      font-size: 16px;
+      overflow: hidden;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;  /*要显示的行数*/
+      -webkit-box-orient: vertical;
+    }
+    .help-description {
+      line-height: 22px;
+      margin-top: 10px;
+      color: #666;
+      overflow: hidden;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 3;  /*要显示的行数*/
+      -webkit-box-orient: vertical;
+    }
+    .look-more {
+      margin-top: 10px;
+      color: #2589ff;
+      line-height: 20px;
+      cursor: pointer;
+      &:hover {
+        color: #51a1ff;
+      }
+    }
+  }
+  .search-pop-input {
+    .el-input__inner {
+      cursor: text;
+      background-color: #FFF;
+      background-color: #FFF;
+      border-color: #DCDFE6;
+    }
+  }
+}
+
+.help-center-search-dialog {
+  background: transparent;
+  .el-dialog__header {
+    padding: 0;
+    display: none;
+  }
+  .el-dialog__body {
+    padding: 0;
+  }
+  .search-btn{
+    width: 180px;
+    height: 60px;
+    border-radius: 0;
+    border-radius: 0 2px 2px 0;
+    font-size: 20px;
+  }
+  .search-contcat-body {
+    width:100%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .search-input {
+    border: 1px solid hsla(0,0%,43.9%,.16);
+    width: 720px;
+    height: 60px;
+    padding: 0 40px;
+    border-radius: 2px 0 0 2px;
+    font-size: 20px;
+  }
+}
+
+.header-dropdown {
+  padding: 10px;
+  -moz-user-select:none; /*火狐*/
+  -webkit-user-select:none; /*webkit浏览器*/
+  -ms-user-select:none; /*IE10*/
+  -khtml-user-select:none; /*早期浏览器*/
+  user-select:none;
+  .dropdown-list {
+    list-style: none;
+    .item {
+      padding: 16px;
+      line-height: 16px;
+      cursor: pointer;
+      background-color: #fff;
+      border-bottom: 1px solid #EEF3FF;
+      &:hover {
+        background-color: #2589FF;
+        color: #fff;
+        border-radius: 4px;
+        overflow: hidden;
+        .phone {
+          color: #fff;
+        }
+      }
+      &:last-child {
+        border: 0;
+      }
+      .item-title {
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .icon {
+        font-size: 12px;
+      }
+      .phone {
+        margin-right: 5px;
+        font-size: 12px;
+        color: #999;
+      }
+    }
+  }
+  .logout-box {
+    background: #f8f8f8;
+    height: 36px;
+    padding: 0 16px;
+    line-height: 36px;
+    cursor: pointer;
+    border-radius: 4px;
+    &:hover {
+      background-color: #f1f1f1;
+      // .item-title, .icon {
+      //   color: #fff;
+      // }
+    }
+    .item-title {
+      font-size: 12px;
+      color: #333;
+      vertical-align: middle;
+    }
+    .icon {
+      font-size: 16px;
+      vertical-align: middle;
+      color: #999;
+    }
+  }
+}
+
+
+.chrome-tips-dialog {
+  line-height: normal;
+  .el-dialog__title {
+    font-weight: bold;
+  }
+  .el-dialog__body {
+    padding: 0 !important;
+  }
+  .el-dialog__footer {
+    padding: 0 0 10px;
+  }
+  .dialog-body {
+    padding: 15px 60px 30px;
+  }
+  .warning-icon {
+    font-size: 16px;
+    color: #FF5050;
+    margin-top: 4px;
+  }
+  .dialog-btn {
+    display: inline-block;
+    width: 136px;
+    height: 32px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    background: transparent;
+    transition: all .2s;
+    .text {
+      transition: all .2s;
+    }
+    &+.dialog-btn {
+      margin-left: 20px;
+    }
+    &.cancel-btn {
+      border-color: rgba(0, 0, 0, 0.15);
+      color: #666;
+      &:hover {
+        border-color: #1890FF;
+        color: #1890FF;
+      }
+    }
+    &.confirm-btn {
+      border-color: #1890FF;
+      color: #1890FF;
+    }
+    &:hover {
+      background: rgb(233, 243, 255);
+    }
+  }
+}

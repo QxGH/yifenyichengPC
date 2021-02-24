@@ -1,0 +1,190 @@
+.app-manage {
+  padding: 10px;
+  min-height: 100%;
+  justify-content: center;
+  .option-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .item-title {
+      color: #666666;
+      font-weight: bold;
+      line-height: 22px;
+      font-size: 20px;
+      text-align: center;
+    }
+    .item {
+      margin: 60px auto 0;
+      width: 360px;
+      height: 465px;
+      border-width: 1px;
+      border-style: solid;
+      position: relative;
+      background: #fff;
+      text-align: center;
+      margin-bottom: 30px;
+      border-color: #2589FF;
+      &::before, &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        background: #2589FF;
+      }
+      &::before {
+        width: 100%;
+        height: 2px;
+        bottom: -3px;
+        left: 3px;
+      }
+      &::after {
+        width: 2px;
+        height: 100%;
+        top: 3px;
+        right: -3px;
+      }
+      .top-title {
+        height: 120px;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        padding-top: 40px;
+        background-image: url('https://cdn.xingchen.cn/FkyqZZSji-GwQ1AyMASUrRVPH4GQ');
+        .title {
+          text-align: center;
+          font-size: 24px;
+          line-height: 27px;
+          font-family: 'RuixianSunHeiHeavyGB1.0';
+          color: #fff;
+        }
+      }
+      .icon {
+        display: block;
+        width: 160px;
+        height: 134px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin: 20px auto 0;
+        background-image: url('https://cdn.xingchen.cn/FqY3RIhhBD9hE6E2sPjOp5QXtoeh');
+      }
+      .tips {
+        font-size: 16px;
+        line-height: 28px;
+      }
+      .btn {
+        width: 230px;
+        height: 40px;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 4px;
+        margin-top: 20px;
+        &.blue-btn {
+          color: #fff;
+          background: #2589FF;
+          border-color: #2589FF;
+          &:hover {
+            background: rgba(37,137,255,.8);
+            border-color: rgba(37,137,255,.8);
+          }
+        }
+      }
+    }
+  }
+  .logo-uploader {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0,0,0,0.1);
+    overflow: hidden;
+    .upload-box {
+      background: #E7F4FF;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      .img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .change-tips {
+        display: block;
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        background:rgba(0,0,0,0.6);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: #fff;
+        opacity: 0.6;
+        font-size: 12px;
+      }
+    }
+  }
+  .main-title {
+    height: 32px;
+    padding: 6px 14px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #333;
+    background-color: #FAFBFF;
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 16px;
+      background: #2589FF;
+      position: absolute;
+      left: 0;
+      top: 8px;
+    }
+  }
+  .form-group-item {
+    margin-bottom: 10px;
+    .form-label {
+      float: left;
+      line-height: 32px;
+      height: 32px;
+      font-weight: 500;
+      width: 140px;
+      text-align: right;
+    }
+    .form-ctrl {
+      line-height: 32px;
+      height: 32px;
+      padding-left: 150px;
+    }
+    .v-mid {
+      vertical-align: middle;
+    }
+    .v-top {
+      vertical-align: top;
+    }
+    .blue-text-btn, .grey-text-btn, .red-text-btn {
+      // height: 32px;
+      padding: 0 12px;
+      background:transparent;
+      border: 0;
+      font-size: 14px;
+      vertical-align: middle;
+      &+.blue-text-btn {
+        padding-left: 0;
+      }
+    }
+    .blue-text-btn {
+      color: #2589FF;
+    }
+    .grey-text-btn {
+      color: #999;
+    }
+    .red-text-btn {
+      color: #FF5050;
+      padding-left: 5px;
+    }
+    .reject-icon {
+      font-size: 16px;
+      color: #FF5050;
+      vertical-align: middle;
+    }
+  }
+}
