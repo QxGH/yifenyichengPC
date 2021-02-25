@@ -22,7 +22,6 @@
     "qiniu-js": "^2.5.5",
     "qs": "^6.9.1",
     "vue": "^2.6.11",
-    "vue-clipboard2": "^0.3.1",
     "vue-concise-slider": "^3.4.4",
     "vue-particles": "1.0.9",
     "vue-router": "^3.1.5",

@@ -129,6 +129,7 @@ export default {
       formRules: {
         atlas: { required: true, message: "请选择文章展示图", trigger: "change" },
       },
+      upfileLoading: false,
       submitLoading: false,
       showArticleSelector: false
     }

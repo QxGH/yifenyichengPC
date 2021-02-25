@@ -8,7 +8,6 @@ import vuescroll from 'vuescroll';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
-import VueClipboard from 'vue-clipboard2' // 剪切板插件
 
 import '@/assets/iconfont/iconfont.css'
 
@@ -19,7 +18,6 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import routerBeforeEach from '@/router/beforeEach'
-
 
 Vue.use(vuescroll); // install the vuescroll 
 Vue.prototype.$vuescrollConfig = {
@@ -36,7 +34,6 @@ Vue.prototype.$vuescrollConfig = {
 };
 
 Vue.use(ElementUI);
-Vue.use(VueClipboard);  // 剪切板插件
 
 
 Vue.config.productionTip = false
