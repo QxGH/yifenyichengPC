@@ -10,44 +10,20 @@
     <div class="header-main-box clearfix">
       <div 
         class="pull-left" 
-        :style="{'opacity': isHome ? opacity.create : 1}"
       >
-        <template v-if="userLogoUrl">
-          <!-- <el-image
-          style="width: auto; height: 40px; vertical-align: middle;"
-          :src="userLogoUrl"
-          fit="fill"
-          ></el-image>-->
+        <div 
+          class="login-box pull-left cursor-pointer flex-box" 
+          style="align-items: center;"
+        >
           <img
-            :src="userLogoUrl"
+            class="name"
             draggable="false"
-            @click="toHome"
-            height="40"
-            width="auto"
+            src="https://cdn.xingchen.cn/a470a275-49fe-4c4d-9a6c-e3177d5c9be0"
             alt
-            class="cursor-pointer"
-            style="vertical-align: middle;"
           />
-        </template>
-        <template v-else>
-          <div 
-            class="login-box pull-left cursor-pointer flex-box" 
-            style="align-items: center;"
-            @click="toHome"
-          >
-            <div class="svg">
-              <Logo></Logo>
-            </div>
-            <img
-              class="name"
-              draggable="false"
-              src="https://cdn.xingchen.cn/a470a275-49fe-4c4d-9a6c-e3177d5c9be0"
-              alt
-            />
-            <i class="dot"></i>
-            <span class="slogan">专注用户运营的技术服务商</span>
-          </div>
-        </template>
+          <i class="dot"></i>
+          <span class="slogan">专注用户运营的技术服务商</span>
+        </div>
       </div>
       
     </div>

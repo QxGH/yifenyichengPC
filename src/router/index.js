@@ -91,8 +91,8 @@ const routes = [
               breadcrumb: '门店管理'
             }
           }, {
-            path: 'editStore',
-            name: 'EditStore', // 编辑门店
+            path: 'storeEdit',
+            name: 'StoreEdit', // 编辑门店
             component: () => import('@/views/store/edit'),
             meta: {
               roles: ['master'],
@@ -101,12 +101,47 @@ const routes = [
           }
         ]
       }, {
-        path: 'setting', // 平台设置
-        component: () => import('@/views/setting/index'),
+        path: 'bannerManage',
+        component: () => import('views/banner'),
         meta: {
           roles: ['master'],
         },
-        children: []
+        children: [
+          {
+            path: '/',
+            name: 'BannerManage', // 轮播管理
+            component: () => import('@/views/banner/manage'),
+            meta: {
+              roles: ['master'],
+              breadcrumb: '轮播管理'
+            }
+          }, {
+            path: 'bannerEdit',
+            name: 'BannerEdit', // 轮播编辑
+            component: () => import('@/views/banner/edit'),
+            meta: {
+              roles: ['master'],
+              breadcrumb: '轮播管理'
+            }
+          }
+        ]
+      }, {
+        path: 'setting', // 设置
+        component: () => import('@/views/setting'),
+        meta: {
+          roles: ['master'],
+        },
+        children: [
+          {
+            path: '/',
+            name: 'JoinDialogSetting', // 加盟弹窗设置
+            component: () => import('@/views/setting/join_dialog_setting'),
+            meta: {
+              roles: ['master'],
+              breadcrumb: '设置'
+            }
+          }
+        ]
       }
     ]
   }, {

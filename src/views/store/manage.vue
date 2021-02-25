@@ -77,7 +77,7 @@ export default {
   methods: {
     addStore() {
       this.$router.push({
-        name: "EditStore",
+        name: "StoreEdit",
         params: {
           shopID: 0
         }
@@ -85,7 +85,7 @@ export default {
     },
     editStore(row) {
       this.$router.push({
-        name: "EditStore",
+        name: "StoreEdit",
         params: {
           shopID: row.id
         }

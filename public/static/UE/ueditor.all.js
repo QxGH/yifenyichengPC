@@ -9,7 +9,6 @@ import uuidV4 from "uuid/v4";
 import { getUserRole } from "@/tools/Cookie";
 import moment from 'moment'
 import $ from './jquery.min'
-import UeBus from '@/bus/ue_bus'
 
 (function(){
 
@@ -24519,11 +24518,6 @@ import UeBus from '@/bus/ue_bus'
 
 					var loadingId = 'loading_' + (+new Date()).toString(36);
 
-					if(input.files[0].size / 1024 / 1024 > 3) {
-						showErrorLoader('图片不得大于3M')
-						return;
-					};
-
 					var imageActionUrl = '//upload.qiniup.com';
 
 					var allowFiles = me.getOpt('imageAllowFiles');
@@ -27875,7 +27869,7 @@ import UeBus from '@/bus/ue_bus'
 			'blockquote', 'pasteplain', 'pagebreak',
 			'selectall', 'print','horizontal', 'removeformat', 'time', 'date', 'unlink',
 			'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
-			'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts', 'imagemanage'];
+			'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts'];
 
 		for (var i = 0, ci; ci = btnCmds[i++];) {
 			ci = ci.toLowerCase();
@@ -29610,10 +29604,6 @@ import UeBus from '@/bus/ue_bus'
 
 	});
 
-	UE.commands['imagemanage'] = {
-		execCommand : function(){
-			UeBus.$emit('ueImageManage')
-		}
-	};
+
 
 })();

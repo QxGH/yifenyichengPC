@@ -23,12 +23,12 @@ const config = [
     id: 'bannerManage',
     title: '轮播图管理',
     icon: 'platform-design-icon',
-    path: '/goodsManage/',
+    path: '/bannerManage/',
   }, {
     id: 'setting',
     title: '设置',
     icon: 'system-setting-icon',
-    path: '/marketingApp/',
+    path: '/setting/',
   }
 ];
 

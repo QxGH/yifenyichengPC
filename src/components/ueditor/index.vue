@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import UeBus from '@/bus/ue_bus'
 
 export default {
   name: "UE",
@@ -51,7 +50,7 @@ export default {
             // 'link', //超链接
             // 'unlink', //取消链接
             // 'emotion', //表情
-            // "simpleupload", //单图上传
+            "simpleupload", //单图上传
             "imagemanage",
             // 'insertvideo', //视频
             "rowspacingtop", //段前距
@@ -102,9 +101,9 @@ export default {
     }
   },
   created() {
-    UeBus.$on('ueImageManage', () => {
-      this.checkGoodsPic()
-    })
+    // UeBus.$on('ueImageManage', () => {
+    //   this.checkGoodsPic()
+    // })
   },
   mounted() {
     this.editor = UE.getEditor(this.randomId, this.config);

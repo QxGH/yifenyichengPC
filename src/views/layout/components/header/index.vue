@@ -70,8 +70,7 @@
 
 <script>
 import Cookies from "js-cookie";
-import { getChromeVersionNoTips } from "@/tools/Cookie";
-import { logout } from "@/tools/commonFunc";
+import { getChromeVersionNoTips, clearCookie } from "@/tools/Cookie";
 import { mapState, mapMutations } from "vuex";
 import ChromeLogoSvg from '@/components/chrome_logo'
 
@@ -139,9 +138,15 @@ export default {
     command(event) {
       switch (event) {
         case "logout":
-          logout();
+          this.logout();
           break;
       }
+    },
+    logout() {
+      clearCookie();
+      this.$router.push({
+        name: 'Login'
+      })
     },
     getUserDetails() {
       let formData = {};
