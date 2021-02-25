@@ -32,7 +32,7 @@ let config = {
 		},
 		devtool: 'source-map',
 		externals: {
-			"echarts": "echarts"
+			// "echarts": "echarts"
 		}
 	}
 };
