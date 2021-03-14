@@ -1,5 +1,5 @@
 <template>
-  <div class="customer-intention">
+  <div class="customer-intention" v-loading="loading">
     <div class="search-box">
       <el-form :inline="true" :model="searchForm" size="small">
         <el-form-item label="客户状态：">
@@ -27,9 +27,9 @@
         <el-table-column type="selection" width="45"></el-table-column>
         <el-table-column prop="name" label="姓名"></el-table-column>
         <el-table-column prop="phone" label="电话"></el-table-column>
-        <el-table-column prop="create_at" label="提交时间"></el-table-column>
+        <el-table-column prop="created_at" label="提交时间"></el-table-column>
         <el-table-column prop="status" label="状态"></el-table-column>
-        <el-table-column prop="status" label="备注"></el-table-column>
+        <el-table-column prop="remark" label="备注"></el-table-column>
         <el-table-column fixed="right" label="操作" width="80">
           <template slot-scope="scope">
             <el-button @click="editHandle(scope.row)" type="text" >编辑</el-button>
@@ -104,14 +104,11 @@ export default {
   name: 'CustomerIntention',
   data() {
     return {
+      loading: false,
       searchForm: {
         status: 0
       },
-      tableData: [
-        {
-          name: '22'
-        }
-      ],
+      tableData: [],
       editDialog: false,
       editRow: {},
       multipleSelection: [],
@@ -127,6 +124,9 @@ export default {
       },
       editFormRules: {},
     }
+  },
+  created() {
+    this.getList()
   },
   methods: {
     searchHandle() {},
@@ -184,11 +184,12 @@ export default {
 
       let formData = {
         page: currentPage ? currentPage : this.pageData.current,
-        pageSize: this.pageData.size,
+        limit: this.pageData.size,
+        status: this.searchForm.status
       };
 
-      this.$api.goods.goodsManage
-        .getGoodsList(formData)
+      this.$api.message
+        .list(formData)
         .then(res => {
           if (res.data.code === 0) {
             let resData = res.data.data;
@@ -200,7 +201,6 @@ export default {
               this.tableData = [];
               this.pageData.total = 0;
             }
-            console.log(resData.items)
           } else {
             this.$message.error(res.data.message);
           }

@@ -54,7 +54,7 @@ const upload = (uptoken, domain, file, key, progress, success, fail) => {
 const getToken = () => {
   return new Promise((resolve, reject) => {
     let formData = {
-      bucket: "xingchenyun"
+      bucket: ""
     };
     qiniuApi.getQiniuToken(formData)
       .then(res => {

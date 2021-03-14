@@ -99,12 +99,12 @@ export default {
     ...mapState(['userInfo', 'priority', 'serviceQrcodeImage', 'iframeURL', 'domainURL'])
   },
   created() {
-    this.getChromeSupportVersion();
-    if(this.userInfo) {
-      this.userInfo_ = this.userInfo;
-    } else {
-      this.getUserDetails();
-    };
+    // this.getChromeSupportVersion();
+    // if(this.userInfo) {
+    //   this.userInfo_ = this.userInfo;
+    // } else {
+    //   this.getUserDetails();
+    // };
     this.setBeadcrumb();
   },
   methods: {

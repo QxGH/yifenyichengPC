@@ -1,7 +1,7 @@
 <template>
   <div class="join-dialog-setting setting-page">
     <div class="tabs-box">
-      <el-tabs v-model="activeName" type="card" @tab-click="tabsChange">
+      <el-tabs v-model="activeName" type="card"  @tab-click="tabsChange">
         <el-tab-pane label="基础信息" name="1"></el-tab-pane>
         <el-tab-pane label="品牌加盟页弹窗" name="2"></el-tab-pane>
         <el-tab-pane label="页面信息" name="3"></el-tab-pane>
@@ -15,13 +15,19 @@
         label-width="100px"
         size="small"
       >
-        <el-form-item label="弹窗图：" prop="atlas">
+        <el-form-item label="联系电话：" prop="phone">
+          <el-input v-model="form.phone" class="max-w-600" placeholder="请输入联系电话"></el-input>
+        </el-form-item>
+        <el-form-item label="地址：" prop="addr">
+          <el-input v-model="form.addr" class="max-w-600" placeholder="请输入地址"></el-input>
+        </el-form-item>
+        <el-form-item label="二维码：" prop="qrcode">
           <div class="goods-img-list clearfix">
-            <template v-for="(item, index) in form.atlas">
-              <div class="item img-item" :key="index">
+            <template v-if="form.qrcode">
+              <div class="item img-item">
                 <el-image
                   style="width: 88px; height: 88px"
-                  :src="item"
+                  :src="form.qrcode"
                   fit="cover"
                   draggable="false"
                 >
@@ -32,7 +38,7 @@
                 </span>
               </div>
             </template>
-            <template v-if="form.atlas.length < 1">
+            <template v-else>
               <el-upload
                 class="image-uploader"
                 :limit="1"
@@ -47,41 +53,16 @@
                   <span>添加图片</span>
                 </div>
               </el-upload>
-              
             </template>
+            
           </div>
-          <p class="form-tips">建议尺寸：宽1900px，高500px，最大3M。</p>
+          <p class="form-tips">建议尺寸：宽300px，高300px，最大3M。</p>
         </el-form-item>
-        <el-form-item label="弹窗时间：" prop="date">
-          <el-date-picker
-            v-model="form.date"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            size="small"
-            clearable
-            :default-time="['00:00:00', '23:59:59']"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-          ></el-date-picker>
+        <el-form-item label="ICP备案号：" prop="icp">
+          <el-input v-model="form.icp" class="max-w-600" placeholder="请输入ICP备案号"></el-input>
         </el-form-item>
-        <el-form-item label="点击事件：" prop="event">
-          <el-radio-group v-model="form.event">
-            <el-radio :label="0">无</el-radio>
-            <el-radio :label="1">文章资讯</el-radio>
-            <el-radio :label="2">外部链接</el-radio>
-          </el-radio-group>
-          <div v-if="form.event == 1" style="padding-left: 68px;">
-            <el-link type="primary" :underline="false" @click="showArticleSelector = true;">选择文章资讯</el-link>
-          </div>
-          <div v-else-if="form.event == 2" class="mg-t-10 max-640" style="padding-left: 180px;">
-            <el-input 
-              v-model="form.url" 
-              class="max-640" 
-              placeholder="请输入外部地址"
-            ></el-input>
-          </div>
-
+        <el-form-item label="统计代码：" prop="code">
+          <el-input type="textarea" class="max-w-600" v-model="form.code" placeholder="请输入统计代码" :autosize="{ minRows: 5, maxRows: 10}"></el-input>
         </el-form-item>
       </el-form>
     </div>
@@ -93,7 +74,7 @@
       <el-button
         type="primary"
         class="normal-btn"
-        @click="submitHandle('submit')"
+        @click="submitHandle()"
         :loading="submitLoading"
       >保存</el-button>
     </div>
@@ -115,13 +96,13 @@ export default {
   name: 'JoinDialogSetting',
   data() {
     return {
-      activeName: '2',
+      activeName: '1',
       form: {
-        atlas: [],
-        date: '',
-        event: 0,
-        url: '',
-        article: ''
+        phone: '',
+        addr: '',
+        qrcode: '',
+        icp: '',
+        code: ''
       },
       formRules: {
         atlas: { required: true, message: "请选择文章展示图", trigger: "change" },
@@ -143,9 +124,9 @@ export default {
   },
   methods: {
     tabsChange(val) {
-      if(val.name == '1') {
+      if(val.name == '2') {
         this.$router.push({
-          name: 'BaseInfoSetting'
+          name: 'JoinDialogSetting'
         })
       } else if(val.name == '3') {
         this.$router.push({

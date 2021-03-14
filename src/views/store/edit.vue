@@ -35,11 +35,11 @@
                 :on-exceed="limitExceed"
                 v-loading="upfileLoading"
               >
+                <div class="item add-item" @click="checkGoodsPic">
+                  <span>+添加图片</span>
+                </div>
               </el-upload>
             </template>
-            <div class="item add-item" @click="checkGoodsPic">
-              <span>+添加图片</span>
-            </div>
           </div>
           <p class="form-tips">建议尺寸：750*400 像素，大小不超过500kb，最多上传5张，第一张将用于列表展示。</p>
         </el-form-item>
@@ -89,6 +89,7 @@ export default {
       },
       formRules: {
         name: [{ required: true, message: "请输入门店名称", trigger: "blur" }],
+        atlas: [{ required: true, message: "请上传门店图", trigger: "blur" }],
         address: [ { required: true,  message: "请输入导航地址，并点击搜索", trigger: "blur"} ],
       },
       map: {
@@ -267,7 +268,6 @@ export default {
         if (valid) {
           
           let formData = {
-            id: this.$route.params.shopID ? this.$route.params.shopID : "",
             name: this.form.name,
             atlas: this.form.atlas,
             province: this.form.province,
@@ -277,10 +277,16 @@ export default {
             address: this.form.address,
             longitude: this.form.longitude,
             latitude: this.form.latitude,
+            telephone: '13312341234',
+            show_address: this.form.address
           };
+          if(this.$route.params.shopID) {
+            formData.id = this.$route.params.shopID
+          };
+
           this.submitLoading = true;
-          this.$api.setting.shopManage
-            .createShop(formData)
+          this.$api.store
+            .save(formData)
             .then(res => {
               if (res.data.code === 0) {
                 this.$message.success("保存成功！");
@@ -322,7 +328,7 @@ export default {
       this.$message.warning("最大支持同时上传5张图片！");
       return false;
     },
-    beforeUpload() {
+    beforeUpload(file) {
       // 上传
       const isLt3M = file.size / 1024 / 1024 < 3;
       if (!isLt3M) {
@@ -373,11 +379,12 @@ export default {
     },
     uploadSuccess(file, uploadRes) {
       let src = uploadRes.domain + uploadRes.truekey;
-      let uploadList = this.uploadList;
+      let uploadList = this.form.atlas;
       if(uploadList.length < 5) {
         uploadList.push(src);
       };
-      this.uploadList = uploadList;
+      this.form.atlas = uploadList;
+      this.upfileLoading = false;
     },
   }
 };

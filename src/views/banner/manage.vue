@@ -87,8 +87,7 @@ export default {
       loading: false,
       activeName: '1',
       searchForm: {
-        key: '',
-        status: 0
+        key: ''
       },
       tableData: [
         {
@@ -102,10 +101,18 @@ export default {
       },
     }
   },
+  created() {
+    if(this.$route.params.type) {
+      this.activeName = this.$route.params.type
+    };
+    this.$nextTick(() => {
+      this.getList();
+    })
+  },
   methods: {
     tabChange(val) {
       this.pageData.current = 1;
-      // this.getList(1);
+      this.getList(1);
     },
     searchHandle() {
       this.pageData.current = 1;
@@ -113,14 +120,14 @@ export default {
     },
     resetSearch() {
       this.searchForm = {
-        key: '',
-        status: 0
+        key: ''
       }
     },
     addHandle() {
       this.$router.push({
         name: 'BannerEdit',
         params: {
+          type: this.activeName,
           id: 0
         }
       })
@@ -129,21 +136,45 @@ export default {
       this.$router.push({
         name: 'BannerEdit',
         params: {
+          type: this.activeName,
           id: row.id
         }
       })
     },
-    deleteHandle(row) {},
+    deleteHandle(row) {
+      this.loading = true;
+      let formData = {
+        id: row.id
+      };
+
+      this.$api.banner
+        .delete(formData)
+        .then(res => {
+          if (res.data.code === 0) {
+            this.loading = false;
+            this.$message.success('删除成功')
+          } else {
+            this.$message.error(res.data.message);
+          };
+          this.getList()
+        })
+        .catch(err => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
     getList(currentPage) {
       this.loading = true;
 
       let formData = {
         page: currentPage ? currentPage : this.pageData.current,
-        pageSize: this.pageData.size,
+        limit: this.pageData.size,
+        type: this.activeName,
+        keyword: this.searchForm.key
       };
 
-      this.$api.goods.goodsManage
-        .getGoodsList(formData)
+      this.$api.banner
+        .list(formData)
         .then(res => {
           if (res.data.code === 0) {
             let resData = res.data.data;
@@ -155,7 +186,6 @@ export default {
               this.tableData = [];
               this.pageData.total = 0;
             }
-            console.log(resData.items)
           } else {
             this.$message.error(res.data.message);
           }

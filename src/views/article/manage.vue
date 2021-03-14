@@ -40,26 +40,33 @@
       >
         <el-table-column prop="title" label="标题">
           <template slot-scope="scope">
-            <p class="overflow-text">
+            <p class="overflow-text" :title="scope.row.title">
               {{scope.row.title}}
             </p>
           </template>
         </el-table-column>
-        <el-table-column prop="index" label="排序"></el-table-column>
-        <el-table-column prop="index" label="浏览次数"></el-table-column>
-        <el-table-column prop="create_at" label="添加时间"></el-table-column>
-        <el-table-column prop="status" label="状态"></el-table-column>
+        <el-table-column prop="sort" label="排序" width="100"></el-table-column>
+        <el-table-column prop="data_popularity" label="浏览次数" width="100"></el-table-column>
+        <el-table-column prop="created_at" label="添加时间"></el-table-column>
+        <el-table-column prop="status" label="状态" width="100">
+          <template slot-scope="scope">
+            {{scope.row.status | statusFilter}}
+          </template>
+        </el-table-column>
         <el-table-column fixed="right" label="操作" width="160">
           <template slot-scope="scope">
             <el-button @click="editHandle(scope.row)" type="text" >编辑</el-button>
             <el-divider direction="vertical"></el-divider>
-            <el-button @click="putShelfHandle(scope.row, 1)" type="text" >上架</el-button>
+            <template v-if="scope.row.status == 1">
+              <el-button @click="operation(scope.row, 'disable')" type="text">下架</el-button>
+            </template>
+            <template v-else>
+              <el-button @click="operation(scope.row, 'enable')" type="text" >上架</el-button>
+            </template>
             <el-divider direction="vertical"></el-divider>
-            <!-- <el-button @click="offShelfHandle(scope.row, 0)" type="text">下架</el-button>
-            <el-divider direction="vertical"></el-divider> -->
             <el-popconfirm
               title="是否确实删除该文章？"
-              @onConfirm="deleteHandle(scope.row)"
+              @onConfirm="operation(scope.row, 'delete')"
             >
               <el-button slot="reference" type="text">删除</el-button>
             </el-popconfirm>
@@ -102,11 +109,14 @@ export default {
       },
     }
   },
+  created() {
+    this.getList()
+  },
   methods: {
     tabChange(val) {
       if(val.name == 2) {
         this.$router.push({
-          name: 'GroupManage'
+          name: 'Category'
         })
       }
     },
@@ -136,19 +146,42 @@ export default {
         }
       })
     },
-    putShelfHandle(row) {},
-    offShelfHandle(row) {},
-    deleteHandle(row) {},
+    operation(row, type) {
+      this.loading = true;
+
+      let formData = {
+        id: row.id,
+        type
+      };
+
+      this.$api.article.manage
+        .operation(formData)
+        .then(res => {
+          if (res.data.code === 0) {
+            this.$message.success('操作成功')
+          } else {
+            this.$message.error(res.data.message);
+          };
+          this.getList();
+          this.loading = false;
+        })
+        .catch(err => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
     getList(currentPage) {
       this.loading = true;
 
       let formData = {
         page: currentPage ? currentPage : this.pageData.current,
-        pageSize: this.pageData.size,
+        limit: this.pageData.size,
+        keyword: this.searchForm.key,
+        status: this.searchForm.status
       };
 
-      this.$api.goods.goodsManage
-        .getGoodsList(formData)
+      this.$api.article.manage
+        .list(formData)
         .then(res => {
           if (res.data.code === 0) {
             let resData = res.data.data;
@@ -160,7 +193,6 @@ export default {
               this.tableData = [];
               this.pageData.total = 0;
             }
-            console.log(resData.items)
           } else {
             this.$message.error(res.data.message);
           }
@@ -181,6 +213,15 @@ export default {
         this.getList();
       });
     },
+  },
+  filters: {
+    statusFilter(val) {
+      let map = {
+        1: '展示中',
+        2: '已下架'
+      }
+      return map[val];
+    }
   }
 }
 </script>

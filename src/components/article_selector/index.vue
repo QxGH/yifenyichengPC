@@ -8,7 +8,7 @@
       @closed="dialogClosed">
       <div class="dialog-body">
         <el-table
-          :data="tableData"
+          :data="articleList"
           stripe
           class="custom-table-style"
           ref="goodsTable"
@@ -19,14 +19,18 @@
               <el-radio v-model="selected" :label="scope.row.id" class="hide-label"></el-radio>
             </template>
           </el-table-column>
-          <el-table-column prop="index" label="标题">
+          <el-table-column prop="title" label="标题">
             <template slot-scope="scope">
               <p class="overflow-text" :title="scope.row.title">
                 {{scope.row.title}}
               </p>
             </template>
           </el-table-column>
-          <el-table-column prop="status" label="状态" width="100"></el-table-column>
+          <el-table-column prop="status" label="状态" width="100">
+            <template slot-scope="scope">
+            {{scope.row.status | statusFilter}}
+          </template>
+          </el-table-column>
         </el-table>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -44,13 +48,17 @@ export default {
   data() {
     return {
       dialogVisible: true,
-      tableData: [
-        {
-          id: 'qweqwe-q231-12313-33'
-        }
-      ],
-      selected: null
+      selected: null,
+      pageData: {
+        current: 1,
+        size: 10,
+        total: 0
+      },
     }
+  },
+  props: ['articleList'],
+  created() {
+    this.getArticleList()
   },
   methods: {
     dialogClosed() {
@@ -58,6 +66,16 @@ export default {
     },
     submitHandle() {
       this.$emit('submit', this.selected)
+    },
+    
+  },
+  filters: {
+    statusFilter(val) {
+      let map = {
+        1: '展示中',
+        2: '已下架'
+      }
+      return map[val];
     }
   }
 }

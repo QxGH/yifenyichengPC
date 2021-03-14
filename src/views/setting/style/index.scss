@@ -1,29 +1,4 @@
 .join-dialog-setting {
-  padding: 10px 10px 60px;
-  height: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  .el-tabs__item {
-    min-width: 120px;
-    text-align: center;
-  }
-  .scroll-box {
-    flex: 1;
-    overflow-x: hidden;
-  }
-  .footer-box {
-    position: absolute;
-    height: 50px;
-    padding-top: 9px;
-    bottom: 0;
-    left: 0;
-    z-index: 99;
-    width: 100%;
-    background: #fff;
-    text-align: center;
-    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
-  }
   .goods-img-list {
     .item {
       width: 88px;
@@ -98,4 +73,36 @@
       background-color: #2589FF;
     }
   }
+}
+
+.setting-page {
+  padding: 10px 10px 60px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  .el-tabs__item {
+    min-width: 120px;
+    text-align: center;
+  }
+  .scroll-box {
+    flex: 1;
+    overflow-x: hidden;
+  }
+  .footer-box {
+    position: absolute;
+    height: 50px;
+    padding-top: 9px;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+  }
+}
+
+.page-info {
+  
 }

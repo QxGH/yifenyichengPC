@@ -4,22 +4,9 @@
  * @LastEditTime: 2021-02-24 11:20:57
  */
 import Cookies from 'js-cookie'
-import { getUserToken, getUserRole, getStoreToken, clearCookie } from 'tools/Cookie'
+import { getUserToken, clearCookie } from 'tools/Cookie'
 import store from "@/store";
-
-const toPlatform_ = () => {
-  let domainURL = store.state.domainURL;
-  Cookies.remove('storeInfo', { path: '/', domain: domainURL });
-  Cookies.remove("storeToken", { path: "/", domain: domainURL });
-  let link;
-  if(process.env.VUE_APP_MODE == 'test') {
-    link = 'http://'+domainURL + '/platform'
-  } else {
-    link = 'http://'+domainURL + '/#/platform'
-  };
-  window.location.href = link;
-  console.log('toPlatform_')
-}
+import Router from '@/router'
 
 const befroeEach = (to, from, next) => {
   // console.log('befroeEach')
@@ -29,40 +16,18 @@ const befroeEach = (to, from, next) => {
   //   document.getElementById('main-wrap').scrollTo(0, 0)
   // }
   
-  let roles = getUserRole().roles;
-  if(!roles) {
-    toPlatform_();
-  };
+  let roles = [];
+
   let userToken = getUserToken();
 
   let whiteList = ['/403', '/404', '/login'];
-  let toIndexPath = ['/', '/home']; // 不需要 role
   
-  if (whiteList.indexOf(to.path) != -1) {
-    next();
-  } else if (userToken) {
-    let storeToken = getStoreToken();
-    if (storeToken) {
-      if (to.meta.roles.length == 0 || arrHas(to.meta.roles, roles) || toIndexPath.indexOf(to.path) != -1) {
-        // 判断路由权限
-        next();
-      } else {
-        next('/404')
-      }
-    } else {
-      toPlatform_();
-    }
-  } else {
+  if(!userToken) {
     clearCookie();
-    let domainURL = store.state.domainURL;
-    let link;
-    if(process.env.VUE_APP_MODE == 'test') {
-      link = 'http://'+domainURL + '/login'
-    } else {
-      link = 'http://'+domainURL + '/#/login'
-    };
-    window.location.href = link;  
-  }
+    Router.push('/login');
+  } else {
+    next();
+  };
 };
 
 const arrHas = (roles, userRoles) => {

@@ -6,7 +6,7 @@ const qiniu = {
     return request({
       url: `tools/oss/uploadToken`,
       method: 'post',
-      source: 'tools',
+      source: 'base',
       data: formData
     });
   }

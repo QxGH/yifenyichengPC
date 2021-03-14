@@ -237,9 +237,12 @@ export default {
       this.login();
     },
     login() {
-      let formData = {};
+      let formData = {
+        name: this.form.account,
+        password: this.form.password
+      };
       this.loginLoading = true;
-      this.$api.user
+      this.$api.account
         .login(formData)
         .then(res => {
           if (res.data.code === 0) {
@@ -260,18 +263,14 @@ export default {
     },
     loginSuccess(resData) {
       this.$message.success("登录成功！");
-      let userInfo = {
-        name: resData.name,
-        phone: resData.phone,
-        btoken: resData.btoken
-      };
+      
       let userToken = resData.authorize.token;
-      // console.log('userToken')
-      // console.log(userToken)
-      let domainURL = this.domainURL;
-      Cookies.set("userInfo", userInfo, { domain: domainURL });
-      Cookies.set("userToken", userToken, { domain: domainURL });
-      this.$router.push("/platform");
+      localStorage.setItem('yfyc_token', userToken)
+      localStorage.setItem('yfyc_ctoken', resData.ctoken)
+      localStorage.setItem('yfyc_name', resData.name)
+      localStorage.setItem('yfyc_truename', resData.truename)
+
+      this.$router.push("/");
     },
     verifySuccess(val) {
       // 图形验证成功
@@ -355,5 +354,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import './style/index.scss'
+@import './style/index.scss';
 </style>

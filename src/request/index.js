@@ -9,10 +9,10 @@ import store from 'store'
 import { MessageBox, Message } from 'element-ui'
 import requestUrl from './requestUrl'
 import { AesDecrypt, AesEncrypt } from '@/tools/Crypto'
+import Router from '@/router'
 
 import {
   getUserToken,
-  getStoreToken,
   clearCookie
 } from 'tools/Cookie'
 
@@ -32,12 +32,12 @@ service.interceptors.request.use(config => {
       break;
     case 'post':
       config.data.source = store.state.requestSource;
-      if (false !== config.secret) config.data = { encrypt: AesEncrypt(JSON.stringify(config.data)) };
+      // if (false !== config.secret) config.data = { encrypt: AesEncrypt(JSON.stringify(config.data)) };
       break;
     default:
   };
 
-  config.headers.token = getStoreToken();
+  config.headers.token = getUserToken();
 
 
   //判断baseURL
@@ -67,20 +67,22 @@ service.interceptors.response.use(response => {
       //   }
       // });
       clearCookie();
-      let domainURL = store.state.domainURL;
-      let link;
-      if(process.env.VUE_APP_MODE == 'test') {
-        link = 'http://'+domainURL + '/login'
-      } else {
-        link = 'http://'+domainURL + '/#/login'
-      };
-      window.location.href = link;
+      // let domainURL = store.state.domainURL;
+      // let link;
+      Router.push('/login');
+
+      // if(process.env.VUE_APP_MODE == 'test') {
+      //   link = 'http://'+domainURL + '/login'
+      // } else {
+      //   link = 'http://'+domainURL + '/#/login'
+      // };
+      // window.location.href = link;
     } else {
-      let resData = response.data.data;
-      if (resData && resData.hasOwnProperty('encrypt')) {
-        let decodeData = JSON.parse(AesDecrypt(resData.encrypt));
-        response.data.data = decodeData;
-      };
+      // let resData = response.data.data;
+      // if (resData && resData.hasOwnProperty('encrypt')) {
+      //   let decodeData = JSON.parse(AesDecrypt(resData.encrypt));
+      //   response.data.data = decodeData;
+      // };
       return Promise.resolve(response)
     }
   } else {

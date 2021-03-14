@@ -49,9 +49,9 @@ const routes = [
               breadcrumb: '文章管理'
             }
           }, {
-            path: 'groupManage',
-            name: 'GroupManage', // 文章分组
-            component: () => import('@/views/article/group'),
+            path: 'category',
+            name: 'Category', // 文章分组
+            component: () => import('@/views/article/category'),
             meta: {
               roles: ['master'],
               breadcrumb: '文章管理'
@@ -116,7 +116,7 @@ const routes = [
               breadcrumb: '轮播管理'
             }
           }, {
-            path: 'bannerEdit',
+            path: 'bannerEdit/:type/:id',
             name: 'BannerEdit', // 轮播编辑
             component: () => import('@/views/banner/edit'),
             meta: {
@@ -134,11 +134,27 @@ const routes = [
         children: [
           {
             path: '/',
+            name: 'BaseInfoSetting', // 基础信息设置
+            component: () => import('@/views/setting/base_info'),
+            meta: {
+              roles: ['master'],
+              breadcrumb: '基础信息'
+            }
+          }, {
+            path: 'joinDialogSetting',
             name: 'JoinDialogSetting', // 加盟弹窗设置
             component: () => import('@/views/setting/join_dialog_setting'),
             meta: {
               roles: ['master'],
-              breadcrumb: '设置'
+              breadcrumb: '品牌加盟页弹窗'
+            }
+          }, {
+            path: 'pageInfo',
+            name: 'PageInfo', // 页面信息设置
+            component: () => import('@/views/setting/page_info'),
+            meta: {
+              roles: ['master'],
+              breadcrumb: '页面信息'
             }
           }
         ]

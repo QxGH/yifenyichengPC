@@ -3,7 +3,7 @@ let url = {};
 // 开发环境
 if(process.env.VUE_APP_MODE == 'dev') {
   url = {
-    baseUrl: 'http://kernel.services.test.xingchen.cn/',
+    baseUrl: 'http://yfyc.custom.test.engzh.com/',
     toolsUrl: 'https://api.services.xingchen.cn/',
     staticUrl: 'https://cdn.xingchen.cn/'
   };
@@ -12,7 +12,7 @@ if(process.env.VUE_APP_MODE == 'dev') {
 // 测试环境
 if(process.env.VUE_APP_MODE == 'test') {
   url = {
-    baseUrl: 'http://kernel.services.test.xingchen.cn/',
+    baseUrl: 'http://yfyc.custom.test.engzh.com/',
     toolsUrl: 'https://api.services.xingchen.cn/',
     staticUrl: 'https://cdn.xingchen.cn/'
   };
