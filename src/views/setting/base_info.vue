@@ -1,5 +1,5 @@
 <template>
-  <div class="join-dialog-setting setting-page">
+  <div class="join-dialog-setting setting-page" v-loading="loading">
     <div class="tabs-box">
       <el-tabs v-model="activeName" type="card"  @tab-click="tabsChange">
         <el-tab-pane label="基础信息" name="1"></el-tab-pane>
@@ -11,7 +11,7 @@
       <el-form
         :model="form"
         :rules="formRules"
-        ref="bannerFrom"
+        ref="baseInfoFrom"
         label-width="100px"
         size="small"
       >
@@ -33,7 +33,7 @@
                 >
                   <img slot="error" class="image-error-icon" src="https://cdn.xingchen.cn/FssW3_T3DRshGt5I-TwCb3gWejyd" alt="">
                 </el-image>
-                <span class="close-btn" @click="deletePic(index)">
+                <span class="close-btn" @click="deletePic">
                   <i class="el-icon-close close-icon"></i>
                 </span>
               </div>
@@ -79,24 +79,19 @@
       >保存</el-button>
     </div>
 
-    <ArticleSelector
-      v-if="showArticleSelector"
-      @closed="articleSelectorClosed"
-      @submit="articleSelectorSubmit"
-    ></ArticleSelector>
   </div>
 </template>
 
 <script>
 import uuidV4 from "uuid/v4";
 import qiniuUploadFile from "@/api/qiniu/uploadFile";
-import ArticleSelector from "@/components/article_selector"
 
 export default {
   name: 'JoinDialogSetting',
   data() {
     return {
       activeName: '1',
+      loading: false,
       form: {
         phone: '',
         addr: '',
@@ -112,15 +107,8 @@ export default {
       showArticleSelector: false
     }
   },
-  components: {
-    ArticleSelector
-  },
   created() {
-    let id = this.$route.params.id;
-    if(id != 0) {
-      this.editId = id;
-      this.getDetails()
-    }
+    this.getDetails()
   },
   methods: {
     tabsChange(val) {
@@ -135,9 +123,35 @@ export default {
       }
     },
     getDetails() {
-      
+      this.loading = true;
+      let formData = {
+        fields: ['telephone', 'address', 'qrcode', 'icp', 'code']
+      };
+      this.$api.setting
+        .details(formData)
+        .then(res => {
+          if (res.data.code === 0) {
+            let data = res.data.data;
+            this.form = {
+              phone: data.telephone,
+              addr: data.address,
+              qrcode: data.qrcode,
+              icp: data.icp,
+              code: data.code
+            };
+            // this.fillForm(res.data.data)
+          } else {
+            this.$message.warning(res.data.message);
+          }
+          this.loading = false;
+        })
+        .catch(err => {
+          this.loading = false;
+        });
     },
-    deletePic(index) {},
+    deletePic(index) {
+      this.form.qrcode = '';
+    },
     beforeUpload(file) {
       // 上传
       const isLt3M = file.size / 1024 / 1024 < 3;
@@ -190,13 +204,8 @@ export default {
     uploadSuccess(file, uploadRes) {
       this.upfileLoading = false;
       let src = uploadRes.domain + uploadRes.truekey
-      let name = file.name;
-    },
-    articleSelectorClosed() {
-      this.showArticleSelector = false;
-    },
-    articleSelectorSubmit(val) {
-      debugger;
+      // let name = file.name;
+      this.form.qrcode = src;
     },
     cancelHandle() {
       this.$router.go(-1)
@@ -206,9 +215,34 @@ export default {
        * @description: 提交
        * @param { type } 
        */  
-      this.$refs['bannerFrom'].validate((valid) => {
+      this.$refs['baseInfoFrom'].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          this.submitLoading = true;
+          let form = this.form;
+          let formData = {
+            // fields: ['telephone', 'address', 'qrcode', 'icp', 'code'],
+            fields: {
+              telephone: form.phone,
+              address: form.addr,
+              qrcode: form.qrcode,
+              icp: form.icp,
+              code: form.code
+            }
+          };
+          this.$api.setting
+            .save(formData)
+            .then(res => {
+              this.getDetails();
+              if (res.data.code === 0) {
+                this.$message.success('保存成功')
+              } else {
+                this.$message.warning(res.data.message);
+              };
+              this.submitLoading = false;
+            })
+            .catch(err => {
+              this.submitLoading = false;
+            });
         } else {
           return false;
         }

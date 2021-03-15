@@ -6,7 +6,6 @@
 // import getUpToken from '@/api/getUpToken'
 import qiniuApi from '@/api/qiniu'
 import uuidV4 from "uuid/v4";
-import { getUserRole } from "@/tools/Cookie";
 import moment from 'moment'
 import $ from './jquery.min'
 
@@ -24578,17 +24577,15 @@ import $ from './jquery.min'
 							contentType: false  ,
 							success : function(res){
 								callback(res)
-							}
+							},
 						})
 					})
 
 					let formData = {
-						bucket: "xingchenyun"
+						bucket: ""
 					};
 					qiniuApi.getQiniuToken(formData).then(res=>{
 						let uuid = uuidV4();
-						let userInfo = getUserRole();
-						let btoken = userInfo.mtoken;
 						let fileName = input.files[0].name;
 						let startIndex = fileName.lastIndexOf(".");
 						let suffix = '';
@@ -24598,7 +24595,7 @@ import $ from './jquery.min'
 								.toLowerCase();
 						};
 
-						let key = `explorer/${btoken}/${uuid}.${suffix}`;
+						let key = `explorer/UEedit/${uuid}.${suffix}`;
 						
 						let	token = res.data.data.uptoken;
 						keyInput.value = key;

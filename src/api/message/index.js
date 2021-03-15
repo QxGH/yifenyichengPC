@@ -10,6 +10,15 @@ const message = {
       data: formData
     });
   },
+  save(formData) {
+    // 留言更新
+    return request({
+      url: `control/website/message/save`,
+      method: 'post',
+      source: 'base',
+      data: formData
+    });
+  },
   operation(formData) {
     // 留言操作
     return request({

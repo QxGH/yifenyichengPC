@@ -1,6 +1,6 @@
 <template>
   <div class="customer-intention" v-loading="loading">
-    <div class="search-box">
+    <!-- <div class="search-box">
       <el-form :inline="true" :model="searchForm" size="small">
         <el-form-item label="客户状态：">
           <el-select v-model="searchForm.status" placeholder="请选择客户状态" size="small">
@@ -14,7 +14,7 @@
         <el-button type="primary" @click="searchHandle">筛选</el-button>
         <el-button type="text" @click="resetSearch">重置筛选条件</el-button>
       </div>
-    </div>
+    </div> -->
     <div class="table-box">
       <el-table
         :data="tableData"
@@ -25,11 +25,19 @@
         @selection-change="tableSelectionChange"
       >
         <el-table-column type="selection" width="45"></el-table-column>
-        <el-table-column prop="name" label="姓名"></el-table-column>
-        <el-table-column prop="phone" label="电话"></el-table-column>
-        <el-table-column prop="created_at" label="提交时间"></el-table-column>
-        <el-table-column prop="status" label="状态"></el-table-column>
-        <el-table-column prop="remark" label="备注"></el-table-column>
+        <el-table-column prop="name" label="姓名" ></el-table-column>
+        <el-table-column prop="phone" label="电话" width="180"></el-table-column>
+        <el-table-column prop="created_at" label="提交时间" width="180"></el-table-column>
+        <el-table-column prop="is_contact" label="状态">
+          <template slot-scope="scope">
+            {{scope.row.is_contact | contactFilter}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="remark" label="备注">
+          <template slot-scope="scope">
+            <p class="overflow-text" :title="scope.row.remark">{{scope.row.remark}}</p>
+          </template>
+        </el-table-column>
         <el-table-column fixed="right" label="操作" width="80">
           <template slot-scope="scope">
             <el-button @click="editHandle(scope.row)" type="text" >编辑</el-button>
@@ -42,12 +50,12 @@
       <el-button
         class="sel-selection-btn"
         :disabled="multipleSelection.length <= 0"
-        @click="communicated"
+        @click="operationHandle(1)"
       >批量设置为未沟通</el-button>
       <el-button
         class="sel-selection-btn"
         :disabled="multipleSelection.length <= 0"
-        @click="notCommunicated"
+        @click="operationHandle(2)"
       >批量设置为已沟通</el-button>
     </div>
     <div class="pagetion-box">
@@ -74,8 +82,8 @@
         <el-form :model="editForm" :rules="editFormRules" size="small" ref="groupForm" label-width="80px">
           <el-form-item label="状态：" prop="status">
             <el-radio-group v-model="editForm.status">
-              <el-radio :label="1">设为已沟通</el-radio>
-              <el-radio :label="2">设为未沟通</el-radio>
+              <el-radio :label="1">设为未沟通</el-radio>
+              <el-radio :label="2">设为已沟通</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="备注：" prop="remark">
@@ -129,8 +137,15 @@ export default {
     this.getList()
   },
   methods: {
-    searchHandle() {},
-    resetSearch() {},
+    searchHandle() {
+      this.pageData.current = 1;
+      this.getList(1);
+    },
+    resetSearch() {
+      this.searchForm = {
+        status: 0
+      }
+    },
     tableSelectionChange(val) {
       // table 多选
       this.multipleSelection = val;
@@ -153,22 +168,74 @@ export default {
         this.allChecked = false;
       };
     },
-    communicated() {
-      // 批量已沟通
+    operationHandle(is_contact) {
+      // 批量 沟通
+      if(this.multipleSelection.length <= 0) {
+        return
+      };  
+      this.loading = true;
+      let id = [];
+      for(let item of this.multipleSelection) {
+        id.push(item.id)
+      };
+      let formData = {
+        id,
+        is_contact,
+        type: 'contact'
+      };
 
-    },
-    notCommunicated() {
-      // 批量未沟通
-
+      this.$api.message
+        .operation(formData)
+        .then(res => {
+          this.loading = false;
+          if (res.data.code === 0) {
+            this.$message.success('操作成功')
+            this.getList()
+          } else {
+            this.$message.error(res.data.message);
+          };
+        })
+        .catch(err => {
+          console.log(err);
+          this.loading = false;
+        });
     },
     editHandle(row) {
       this.editRow = row;
       this.editDialog = true;
     },
     editSubmit() {
+      this.loading = true;
 
+      let formData = {
+        id: this.editRow.id,
+        is_contact: this.editForm.status,
+        remark: this.editForm.remark
+      };
+
+      this.$api.message
+        .save(formData)
+        .then(res => {
+          this.loading = false;
+          if (res.data.code === 0) {
+            this.$message.success('保存成功')
+            this.getList()
+            this.editDialog = false;
+          } else {
+            this.$message.error(res.data.message);
+          };
+        })
+        .catch(err => {
+          console.log(err);
+          this.loading = false;
+        });
     },
-    editDialogClose() {},
+    editDialogClose() {
+      this.editForm = {
+        status: 1,
+        remark: ''
+      }
+    },
     pageChange(val) {
       this.pageData.current = val;
       this.getList(val);
@@ -211,6 +278,15 @@ export default {
           this.loading = false;
         });
     },
+  },
+  filters: {
+    contactFilter(val) {
+      let map = {
+        1: '未沟通',
+        2: '已沟通'
+      };
+      return map[val];
+    }
   }
 }
 </script>

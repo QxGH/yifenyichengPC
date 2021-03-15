@@ -72,7 +72,6 @@
 <script>
 import vuescroll from "vuescroll";
 import asideConfig from "@/router/asideConfig";
-import { getUserRole, getPriority } from "@/tools/Cookie";
 import Logo from "@/components/logo";
 import { mapMutations, mapState } from "vuex";
 
@@ -181,22 +180,6 @@ export default {
       this.$router.push('/')
     },
   },
-  filters: {
-    isDisabled(val) {
-      let userRoles = getUserRole();
-      if (val.length > 0) {
-        for (let item of val) {
-          if (userRoles.includes(item)) {
-            return false;
-          } else {
-            return true;
-          }
-        }
-      } else {
-        return false;
-      }
-    }
-  }
 };
 </script>
 <style lang="scss">

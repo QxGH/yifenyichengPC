@@ -70,7 +70,7 @@
 
 <script>
 import Cookies from "js-cookie";
-import { getChromeVersionNoTips, clearCookie } from "@/tools/Cookie";
+import { clearCookie } from "@/tools/Cookie";
 import { mapState, mapMutations } from "vuex";
 import ChromeLogoSvg from '@/components/chrome_logo'
 
@@ -178,13 +178,13 @@ export default {
         });
     },
     showChromeVersionTips() {
-      let chromeVersionNoTips = getChromeVersionNoTips(); // 是否不再提示chrome版本 1-不再提示
-      if(chromeVersionNoTips != 1) {
-        let chromeVersion = this.getChromeVersion();
-        if (!chromeVersion || chromeVersion < 80) {
-          this.chromeTipsDialog = true;
-        };
-      };
+      // let chromeVersionNoTips = getChromeVersionNoTips(); // 是否不再提示chrome版本 1-不再提示
+      // if(chromeVersionNoTips != 1) {
+      //   let chromeVersion = this.getChromeVersion();
+      //   if (!chromeVersion || chromeVersion < 80) {
+      //     this.chromeTipsDialog = true;
+      //   };
+      // };
     },
     getChromeVersion() {
       let userAgent = navigator.userAgent;

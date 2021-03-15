@@ -73,6 +73,14 @@
       background-color: #2589FF;
     }
   }
+  .delete-icon {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #666;
+    &:hover {
+      color: #409EFF;
+    }
+  }
 }
 
 .setting-page {

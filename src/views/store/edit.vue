@@ -276,9 +276,7 @@ export default {
             region_code: this.form.region_code,
             address: this.form.address,
             longitude: this.form.longitude,
-            latitude: this.form.latitude,
-            telephone: '13312341234',
-            show_address: this.form.address
+            latitude: this.form.latitude
           };
           if(this.$route.params.shopID) {
             formData.id = this.$route.params.shopID
