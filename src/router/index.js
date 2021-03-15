@@ -10,23 +10,15 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/login',
-    name: 'Login',  // 登录
-    component: () => import('@/views/login'),
-    meta: {
-      roles: [],
-    },
-  }, {
     path: '/',
     name: 'Layout',
-    redirect: '/articleManage',
     component: () => import('views/layout'),
     meta: {
       roles: [],
     },
     children: [
       {
-        path: 'articleManage',
+        path: '/',
         component: () => import('views/article'),
         meta: {
           roles: ['master'],
@@ -160,6 +152,13 @@ const routes = [
         ]
       }
     ]
+  }, {
+    path: '/login',
+    name: 'Login',  // 登录
+    component: () => import('@/views/login'),
+    meta: {
+      roles: [],
+    },
   }, {
     path: "/404",
     name: "notFound",

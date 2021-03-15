@@ -8,7 +8,6 @@ import axios from 'axios'
 import store from 'store'
 import { MessageBox, Message } from 'element-ui'
 import requestUrl from './requestUrl'
-import { AesDecrypt, AesEncrypt } from '@/tools/Crypto'
 import Router from '@/router'
 
 import {
@@ -32,7 +31,6 @@ service.interceptors.request.use(config => {
       break;
     case 'post':
       config.data.source = store.state.requestSource;
-      // if (false !== config.secret) config.data = { encrypt: AesEncrypt(JSON.stringify(config.data)) };
       break;
     default:
   };

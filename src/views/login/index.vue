@@ -112,21 +112,12 @@
         clickMode="push"
       ></VueParticles>
     </div>
-    <SlideVerifyDialog
-      v-if="showVerifyDialog"
-      :verifyType="verifyType"
-      @success="verifySuccess"
-      @close="closeVerifyDialog"
-    ></SlideVerifyDialog>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import Cookies from "js-cookie";
-import { slider, slideritem } from "vue-concise-slider";
 import CommonHeader from "./components/header";
-import SlideVerifyDialog from "@/components/slide_verify_dialog/";
 import VueParticles from "@/components/vue_particles/index.vue";
 
 // VueParticles - option
@@ -149,9 +140,6 @@ import VueParticles from "@/components/vue_particles/index.vue";
 export default {
   name: "Login",
   components: {
-    slider,
-    slideritem,
-    SlideVerifyDialog,
     VueParticles,
     CommonHeader
   },
@@ -166,14 +154,6 @@ export default {
       sendCodeLater: null, // 发送验证码 定时器
       sendCodeTime: 60, // 发送验证码倒计时 时间
 
-      verifyType: "sendLoginCode", // sendCode  login  // 图片验证类型
-      /** 
-       * @verifyType
-      // sendLoginCode 登录验证码
-      // sendRegistCode 注册验证码
-      // sendBindCode 绑定手机号 验证码
-      // sendRePwdCode 找回密码验证码
-      */
       form: {
         account: "",
         password: "",
@@ -186,23 +166,6 @@ export default {
       invitationCodeMsg: '',  // 邀请码 验证 提示
       requireInvitationCode: false, // 需要邀请码
       customerDialog: false,
-      showVerifyDialog: false, // 是否显示滑动验证
-      slider: {
-        imgList: ["https://cdn.xingchen.cn/Fincwz89qvZLvIHK4fJtN8yTwIVR"],
-        options: {
-          pagination: false, // 显示页码
-          currentPage: 0, //当前页码
-          thresholdDistance: 100, //滑动判定距离
-          thresholdTime: 300, //滑动判定时间
-          autoplay: 3000, //自动滚动[ms]
-          loop: true, //循环滚动
-          direction: "horizontal", //方向设置，垂直滚动 vertical horizontal
-          loopedSlides: 1, //无限滚动前后遍历数
-          slidesToScroll: 1, //每次滑动项数
-          timingFunction: "ease",
-          speed: 500
-        }
-      },
       loginLoading: false,
       registerLoading: false,
       customerService: '',  // 客服二维码
@@ -272,22 +235,6 @@ export default {
 
       this.$router.push("/");
     },
-    verifySuccess(val) {
-      // 图形验证成功
-      this.showVerifyDialog = false;
-      if (val == "sendRegistCode") {
-        this.startCodeLater();
-      } else if (val == "sendLoginCode") {
-        // 获取登录验证码
-        this.startCodeLater();
-        this.getLoginCode();
-      } else if (val == "sendRePwdCode") {
-        // 忘记密码 验证码
-        this.startCodeLater();
-      } else if (val == "login") {
-        this.login();
-      }
-    },
     addCustomerHandle() {
       this.customerDialog = true;
     },
@@ -331,9 +278,6 @@ export default {
       if (this.sendCodeTime > 0) {
         return this.sendCodeTime + "s后获取";
       }
-    },
-    closeVerifyDialog() {
-      this.showVerifyDialog = false;
     },
     resetFomrRule() {
       this.formRule = {

@@ -2,14 +2,9 @@
   <div class="aside">
     <div class="main-menu">
       <div class="logo-box" @click="toHome" style="cursor: pointer;">
-        <template v-if="shopInfo && shopInfo.businessInfo &&  shopInfo.businessInfo.codeInfo && shopInfo.businessInfo.codeInfo.batchLogo">
-          <img :src="shopInfo.businessInfo.codeInfo.batchLogo" draggable="false" alt="" class="logo">
-        </template>
-        <template v-else>
-          <div class="svg">
-            <Logo></Logo>
-          </div>
-        </template>
+        <div class="svg">
+          <Logo></Logo>
+        </div>
       </div>
       <div class="aside-main">
         <vuescroll :ops="menuScrollOps">
@@ -73,7 +68,6 @@
 import vuescroll from "vuescroll";
 import asideConfig from "@/router/asideConfig";
 import Logo from "@/components/logo";
-import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "AsideBar",
@@ -103,9 +97,6 @@ export default {
       console.log('roter aside watch')
       this.activeMenu();
     },
-  },
-  computed: {
-    ...mapState(['shopInfo'])
   },
   created() {
     this.activeMenu("created");

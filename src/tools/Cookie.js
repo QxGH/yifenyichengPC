@@ -1,6 +1,3 @@
-import Cookies from 'js-cookie'
-import { AesDecrypt } from './Crypto'
-import store from '@/store'
 import Router from '@/router'
 
 // 获取 token
@@ -35,8 +32,6 @@ const clearCookie = () => {
   localStorage.removeItem('yfyc_ctoken')
   localStorage.removeItem('yfyc_name')
   localStorage.removeItem('yfyc_truename')
-  // Cookies.remove('userToken', { path: '/', domain: store.state.domainURL });
-  // Cookies.remove('userInfo', { path: '/', domain: store.state.domainURL });
 }
 
 export {

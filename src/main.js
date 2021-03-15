@@ -1,8 +1,3 @@
-/*
- * @Description: 
- * @Date: 2021-01-20 18:08:37
- * @LastEditTime: 2021-02-24 17:48:49
- */
 import Vue from 'vue'
 import vuescroll from 'vuescroll';
 import ElementUI from 'element-ui';
