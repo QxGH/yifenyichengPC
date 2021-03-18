@@ -2,9 +2,10 @@
   <div class="aside">
     <div class="main-menu">
       <div class="logo-box" @click="toHome" style="cursor: pointer;">
-        <div class="svg">
+        <!-- <div class="svg">
           <Logo></Logo>
-        </div>
+        </div> -->
+        <img src="https://cdn.xingchen.cn/Fuj78Qdl0UWG_-ob92LbPBhS05Ea" class="logo-img" alt="">
       </div>
       <div class="aside-main">
         <vuescroll :ops="menuScrollOps">
@@ -109,9 +110,13 @@ export default {
     activeMenu(type) {
       let path = this.$route.path;
       let meta = this.$route.meta;
-      let arr = path.split("/");
-      let parentActive = `/${arr[1]}/`; // 父菜单选中
-      
+      let parentActive = '';
+      if(path == '/' || path.indexOf('articleEdit') != '-1' || path.indexOf('category') != '-1') {
+        parentActive = '/';
+      } else {
+        let arr = path.split("/");
+        parentActive = `/${arr[1]}/`; // 父菜单选中
+      };
       let childrenActive = ""; // 子菜单选中
       for (let item of asideConfig) {
         if (item.path === parentActive && item.children) {
@@ -132,9 +137,9 @@ export default {
         this.showSubMenu = true; // 显示子级菜单
         this.$emit("showSubMenu", true);
       };
-      if(parentActive == '/articleManage/') {
-        parentActive = '/articleManage'
-      }
+      // if(parentActive == '/articleManage/') {
+      //   parentActive = '/articleManage'
+      // }
       this.defaultActive = parentActive;
     },
     handleOpen(key, keyPath) {

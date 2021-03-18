@@ -8,7 +8,7 @@ const config = [
     id: 'articleManage',
     title: '文章管理',
     icon: 'order-manage-icon',
-    path: '/articleManage',
+    path: '/',
   }, {
     id: 'customerIntention',
     title: '客户意向',

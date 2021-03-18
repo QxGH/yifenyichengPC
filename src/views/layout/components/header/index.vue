@@ -14,6 +14,15 @@
             <i class="icon el-icon-arrow-right"></i>
           </div>
         </div>
+        <ul class="dropdown-list">
+          <li class="item clearfix" @click="command('changePwd')">
+            <label class="item-title pull-left">修改密码</label>
+            <!-- <div class="item-details pull-right">
+              <span class="phone" style>{{userName}}</span>
+              <i class="icon el-icon-arrow-right"></i>
+            </div> -->
+          </li>
+        </ul>
         <div class="logout-box" @click="command('logout')">
           <label class="item-title pull-left">退出登录</label>
           <div class="item-details pull-right">
@@ -22,7 +31,30 @@
         </div>
       </el-popover>
     </div>
-
+    <el-dialog
+      title="修改密码"
+      :visible.sync="changePwdDialog"
+      width="500px"
+      center
+      @closed="changePwdClosed">
+      <div class="dialog-body" style="padding: 0 20px;">
+        <el-form :model="pwdForm" :rules="pwdRules" ref="pwdForm" label-width="100px" size="small">
+          <el-form-item label="旧密码：" prop="old">
+            <el-input v-model="pwdForm.old" autocomplete="new-password" show-password></el-input>
+          </el-form-item>
+          <el-form-item label="新密码：" prop="new">
+            <el-input v-model="pwdForm.new" autocomplete="new-password" show-password></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码：" prop="confirm">
+            <el-input v-model="pwdForm.confirm" autocomplete="new-password" show-password></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="changePwdDialog = false" class="normal-btn">取 消</el-button>
+        <el-button type="primary" @click="changePwdSubmit" :loading="submitLoading" class="normal-btn">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -36,7 +68,19 @@ export default {
       isHome: true,
       shopName: '文章管理',
       breadcrumb: '',
-      userName: ''
+      userName: '',
+      changePwdDialog: false,
+      pwdForm: {
+        old: '',
+        new: '',
+        confirm: ''
+      },
+      pwdRules: {
+        old: { required: true, message: '请输入旧密码', trigger: 'blur' },
+        new: { required: true, message: '请输入新密码', trigger: 'blur' },
+        confirm: { required: true, message: '请输入确认密码', trigger: 'blur' },
+      },
+      submitLoading: false
     };
   },
   watch: {
@@ -75,10 +119,52 @@ export default {
 
       this.showHelpAndSearch = false;
     },
+    changePwdClosed() {
+      this.$refs['pwdForm'].resetFields();
+    },
+    changePwdSubmit() {
+      this.$refs['pwdForm'].validate((valid) => {
+        if (valid) {
+          if(this.pwdForm.new.length < 8) {
+            this.$message.warning('密码需为8-18位至少包含小写字母、大写字母、数字、特殊符号')
+            return
+          };
+          if(this.pwdForm.new != this.pwdForm.confirm) {
+            this.$message.warning('两次输入新密码不一致')
+            return
+          };
+          this.submitLoading = true;
+          let formData = {
+            old_password: this.pwdForm.old,
+            password: this.pwdForm.new
+          };
+          this.$api.account.info
+            .changePwd(formData)
+            .then(res => {
+              this.submitLoading = false;
+              this.changePwdDialog = false;
+              if (res.data.code === 0) {
+                this.$message.success('修改成功，请重新登录')
+                this.logout()
+              } else {
+                this.$message.warning(res.data.message);
+              };
+            })
+            .catch(err => {
+              this.submitLoading = false;
+            });
+        } else {
+          return false;
+        }
+      });
+    },
     command(event) {
       switch (event) {
         case "logout":
           this.logout();
+          break;
+        case "changePwd":
+          this.changePwd();
           break;
       }
     },
@@ -88,10 +174,13 @@ export default {
         name: 'Login'
       })
     },
+    changePwd() {
+      this.changePwdDialog = true;
+    }
   }
 };
 </script>
 
-<style>
-@import url("./style/index.min.css");
+<style lang="scss">
+@import "./style/index.scss";
 </style>

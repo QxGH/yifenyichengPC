@@ -18,11 +18,11 @@
           <img
             class="name"
             draggable="false"
-            src="https://cdn.xingchen.cn/a470a275-49fe-4c4d-9a6c-e3177d5c9be0"
+            src="https://cdn.xingchen.cn/Fvohvt_Tj2fz1xBrsgkodlw5pkj0"
             alt
           />
-          <i class="dot"></i>
-          <span class="slogan">专注用户运营的技术服务商</span>
+          <!-- <i class="dot"></i>
+          <span class="slogan">专注用户运营的技术服务商</span> -->
         </div>
       </div>
       

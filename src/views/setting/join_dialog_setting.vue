@@ -186,7 +186,7 @@ export default {
             let data = res.data.data.join_popup;
             this.form.image = data.image;
             this.form.date = [data.startDate, data.endDate];
-            this.form.event = data.gotoType;
+            this.form.event = Number(data.gotoType);
 
             if(data.gotoType == 2) {
               this.form.article = data.gotoArticleId;

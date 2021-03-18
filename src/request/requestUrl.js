@@ -4,8 +4,6 @@ let url = {};
 if(process.env.VUE_APP_MODE == 'dev') {
   url = {
     baseUrl: 'http://yfyc.custom.test.engzh.com/',
-    toolsUrl: 'https://api.services.xingchen.cn/',
-    staticUrl: 'https://cdn.xingchen.cn/'
   };
 };
 
@@ -13,17 +11,13 @@ if(process.env.VUE_APP_MODE == 'dev') {
 if(process.env.VUE_APP_MODE == 'test') {
   url = {
     baseUrl: 'http://yfyc.custom.test.engzh.com/',
-    toolsUrl: 'https://api.services.xingchen.cn/',
-    staticUrl: 'https://cdn.xingchen.cn/'
   };
 };
 
 // 生产环境
 if(process.env.VUE_APP_MODE == 'prod') {
   url = {
-    baseUrl: 'https://kernel.services.xingchen.cn/',
-    toolsUrl: 'https://api.services.xingchen.cn/',
-    staticUrl: 'https://cdn.xingchen.cn/'
+    baseUrl: 'http://yfyc.custom.engzh.com/',
   };
 };
 
