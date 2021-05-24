@@ -17,7 +17,7 @@ if(process.env.VUE_APP_MODE == 'test') {
 // 生产环境
 if(process.env.VUE_APP_MODE == 'prod') {
   url = {
-    baseUrl: 'http://yfyc.custom.engzh.com/',
+    baseUrl: 'https://www.yifenyicheng.com/',
   };
 };
 
